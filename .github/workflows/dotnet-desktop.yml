@@ -15,10 +15,10 @@ jobs:
     runs-on: windows-latest
 
     env:
-      Solution_Name: CoffeeManagement.sln
-      Test_Project_Path: CoffeeManagement.Tests\CoffeeManagement.Tests.csproj
-      Wap_Project_Directory: CoffeeManagement.Package
-      Wap_Project_Path: CoffeeManagement.Package\CoffeeManagement.Package.wapproj
+      Solution_Name: CoffeeManagementProject.sln
+      Test_Project_Path: CoffeeManagementProject.Tests\CoffeeManagement.Tests.csproj
+      Wap_Project_Directory: CoffeeManagementProject.Package
+      Wap_Project_Path: CoffeeManagementProject.Package\CoffeeManagement.Package.wapproj
 
     steps:
     # 1️⃣ Checkout source
