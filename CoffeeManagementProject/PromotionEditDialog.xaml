@@ -1,0 +1,118 @@
+﻿<Window x:Class="CoffeeManagement.PromotionEditDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CoffeeManagement"
+        mc:Ignorable="d"
+        Title="Chỉnh Sửa Khuyến Mãi" 
+        Width="480" 
+        SizeToContent="Height"
+        WindowStartupLocation="CenterOwner"
+        WindowStyle="ToolWindow"
+        Loaded="Window_Loaded">
+
+    <Window.Resources>
+        <Style TargetType="TextBlock" x:Key="LabelStyle">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+            <Setter Property="Margin" Value="0,0,10,0"/>
+        </Style>
+
+        <Style TargetType="Control" x:Key="InputStyle">
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="Height" Value="32"/>
+        </Style>
+        <Style TargetType="TextBox" BasedOn="{StaticResource InputStyle}"/>
+        <Style TargetType="ComboBox" BasedOn="{StaticResource InputStyle}"/>
+        <Style TargetType="DatePicker" BasedOn="{StaticResource InputStyle}"/>
+
+        <Style TargetType="Button" x:Key="BaseButton">
+            <Setter Property="Padding" Value="15,8"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="BorderThickness" Value="0"/>
+        </Style>
+        <Style TargetType="Button" x:Key="SuccessButton" BasedOn="{StaticResource BaseButton}">
+            <Setter Property="Background" Value="#2E8B57"/>
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
+        <Style TargetType="Button" x:Key="CancelButton" BasedOn="{StaticResource BaseButton}">
+            <Setter Property="Background" Value="#E0E0E0"/>
+            <Setter Property="Foreground" Value="#333333"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Margin="20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="Mã Code" Style="{StaticResource LabelStyle}" Margin="0,5,10,5"/>
+            <TextBox Grid.Row="0" Grid.Column="1" x:Name="TxtCode" Margin="0,5,0,5"/>
+
+            <TextBlock Grid.Row="1" Grid.Column="0" Text="Mô tả" Style="{StaticResource LabelStyle}" Margin="0,5,10,5" VerticalAlignment="Top"/>
+            <TextBox Grid.Row="1" Grid.Column="1" x:Name="TxtDescription" Margin="0,5,0,5"
+                     Height="80" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto"/>
+
+            <TextBlock Grid.Row="2" Grid.Column="0" Text="Loại giảm" Style="{StaticResource LabelStyle}" Margin="0,5,10,5"/>
+            <ComboBox Grid.Row="2" Grid.Column="1" x:Name="CboDiscountType" Margin="0,5,0,5">
+                <ComboBoxItem Content="Giảm theo tiền (VNĐ)" Tag="2"/>
+                <ComboBoxItem Content="Giảm theo phần trăm (%)" Tag="1"/>
+            </ComboBox>
+
+            <TextBlock Grid.Row="3" Grid.Column="0" Text="Giá trị giảm" Style="{StaticResource LabelStyle}" Margin="0,5,10,5"/>
+            <TextBox Grid.Row="3" Grid.Column="1" x:Name="TxtDiscountValue" Margin="0,5,0,5"/>
+
+            <TextBlock Grid.Row="4" Grid.Column="0" Text="Đơn tối thiểu" Style="{StaticResource LabelStyle}" Margin="0,5,10,5"/>
+            <TextBox Grid.Row="4" Grid.Column="1" x:Name="TxtMinPurchaseAmount" Margin="0,5,0,5"/>
+
+            <TextBlock Grid.Row="5" Grid.Column="0" Text="Giảm tối đa" Style="{StaticResource LabelStyle}" Margin="0,5,10,5"/>
+            <TextBox Grid.Row="5" Grid.Column="1" x:Name="TxtMaxDiscountAmount" Margin="0,5,0,5"
+                     ToolTip="Bỏ trống nếu không giới hạn"/>
+
+            <TextBlock Grid.Row="6" Grid.Column="0" Text="Ngày bắt đầu" Style="{StaticResource LabelStyle}" Margin="0,5,10,5"/>
+            <DatePicker Grid.Row="6" Grid.Column="1" x:Name="DpStartDate" Margin="0,5,0,5"/>
+
+            <TextBlock Grid.Row="7" Grid.Column="0" Text="Ngày kết thúc" Style="{StaticResource LabelStyle}" Margin="0,5,10,5"/>
+            <DatePicker Grid.Row="7" Grid.Column="1" x:Name="DpEndDate" Margin="0,5,0,5"/>
+
+            <TextBlock Grid.Row="8" Grid.Column="0" Text="Giới hạn lượt" Style="{StaticResource LabelStyle}" Margin="0,5,10,5"/>
+            <TextBox Grid.Row="8" Grid.Column="1" x:Name="TxtUsageLimit" Margin="0,5,0,5"
+                     ToolTip="Bỏ trống nếu không giới hạn"/>
+
+            <TextBlock Grid.Row="9" Grid.Column="0" Text="Trạng thái" Style="{StaticResource LabelStyle}" Margin="0,5,10,5"/>
+            <CheckBox Grid.Row="9" Grid.Column="1" x:Name="ChkIsActive" Content="Đang hoạt động"
+                      VerticalAlignment="Center" Margin="0,5,0,5"/>
+        </Grid>
+
+        <Border Grid.Row="1" Background="#F0F0F0" BorderBrush="#E0E0E0" BorderThickness="0,1,0,0">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="15,10">
+                <Button x:Name="BtnSave" Content="Lưu Lại" Style="{StaticResource SuccessButton}"
+                        IsDefault="True" Click="BtnSave_Click"/>
+                <Button x:Name="BtnCancel" Content="Hủy" Style="{StaticResource CancelButton}"
+                        IsCancel="True" Margin="10,0,0,0" Click="BtnCancel_Click"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>

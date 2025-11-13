@@ -1,0 +1,20 @@
+﻿CoffeeManagement
+1.0.0.0
+
+winexe
+C#
+.cs
+C:\Users\CONG NHAT\Downloads\CoffeeManagement\CoffeeManagement\obj\Debug\net8.0-windows\
+CoffeeManagement
+none
+false
+TRACE;DEBUG;NET;NET8_0;NETCOREAPP;WINDOWS;WINDOWS7_0;NET5_0_OR_GREATER;NET6_0_OR_GREATER;NET7_0_OR_GREATER;NET8_0_OR_GREATER;NETCOREAPP3_0_OR_GREATER;NETCOREAPP3_1_OR_GREATER;WINDOWS7_0_OR_GREATER
+C:\Users\CONG NHAT\Downloads\CoffeeManagement\CoffeeManagement\App.xaml
+17-588833201
+11584300966
+252087234192
+238-1137106670
+AdminAllOrdersView.xaml;AdminDashboardView.xaml;AdminPromotionsView.xaml;CartDialog.xaml;LoginWindow.xaml;MainWindow.xaml;MenuItemDialog.xaml;MenuItemsList.xaml;MenuUI.xaml;OrderDetailDialog.xaml;OrderHistory.xaml;PromotionEditDialog.xaml;StaffOrders.xaml;UserDialog.xaml;UserProfile.xaml;UsersListControl.xaml;UserUpdateProfile.xaml;
+
+False
+

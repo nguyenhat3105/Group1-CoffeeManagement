@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CoffeeManagementProject.DAL.Models;
 
@@ -16,6 +17,14 @@ public partial class User
     public string? FirstName { get; set; }
 
     public string? LastName { get; set; }
+    [NotMapped]
+    public string FullName
+    {
+        get
+        {
+            return $"{FirstName} {LastName}"; // Hoặc (FirstName + " " + LastName)
+        }
+    }
 
     public byte RoleId { get; set; }
 

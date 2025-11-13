@@ -1,0 +1,185 @@
+﻿<UserControl x:Class="CoffeeManagement.AdminDashboardView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+             mc:Ignorable="d"
+             Background="#FAFAFA"
+             MinWidth="900" MinHeight="600">
+
+    <UserControl.Resources>
+        <SolidColorBrush x:Key="PrimaryTextColor" Color="#1C1C1C"/>
+        <SolidColorBrush x:Key="SecondaryTextColor" Color="#6c757d"/>
+        <SolidColorBrush x:Key="CardBackground" Color="#FFFFFF"/>
+        <SolidColorBrush x:Key="BorderColor" Color="#E0E0E0"/>
+
+        <SolidColorBrush x:Key="RevenueBrush" Color="#2E8B57"/>
+        <SolidColorBrush x:Key="OrdersBrush" Color="#007BFF"/>
+        <SolidColorBrush x:Key="ItemsBrush" Color="#FF7A00"/>
+
+        <DropShadowEffect x:Key="CardShadow"
+                          BlurRadius="15"
+                          ShadowDepth="2"
+                          Opacity="0.1"
+                          Color="Black"/>
+
+        <Style x:Key="StatCardStyle" TargetType="Border">
+            <Setter Property="Background" Value="{StaticResource CardBackground}"/>
+            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BorderColor}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="20"/>
+            <Setter Property="Effect" Value="{StaticResource CardShadow}"/>
+        </Style>
+
+        <Style x:Key="StatCardIconStyle" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Segoe MDL2 Assets"/>
+            <Setter Property="FontSize" Value="28"/>
+            <Setter Property="Foreground" Value="#FFFFFF"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+
+        <Style x:Key="StatIconBackgroundStyle" TargetType="Border">
+            <Setter Property="Width" Value="50"/>
+            <Setter Property="Height" Value="50"/>
+            <Setter Property="CornerRadius" Value="25"/>
+            <Setter Property="Margin" Value="0,0,15,0"/>
+        </Style>
+
+    </UserControl.Resources>
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="📊 Bảng điều khiển quản trị" 
+                   FontSize="24" FontWeight="Bold" 
+                   Foreground="{StaticResource PrimaryTextColor}"/>
+
+        <Grid Grid.Row="1" Margin="0,20,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0" Margin="0,0,10,0">
+
+                <Border Style="{StaticResource StatCardStyle}" Margin="0,0,0,15">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Border Grid.Column="0" Background="{StaticResource RevenueBrush}" 
+                                Style="{StaticResource StatIconBackgroundStyle}">
+                            <TextBlock Text="&#xE8C7;" Style="{StaticResource StatCardIconStyle}"/>
+                        </Border>
+
+                        <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                            <TextBlock Text="Tổng doanh thu" FontSize="14" Foreground="{StaticResource SecondaryTextColor}" />
+                            <TextBlock x:Name="TxtTotalRevenue" FontSize="26" FontWeight="Bold" Text="0đ"
+                                       Foreground="{StaticResource RevenueBrush}"/>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+                <Border Style="{StaticResource StatCardStyle}" Margin="0,0,0,15">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Border Grid.Column="0" Background="{StaticResource OrdersBrush}" 
+                                Style="{StaticResource StatIconBackgroundStyle}">
+                            <TextBlock Text="&#xE8F7;" Style="{StaticResource StatCardIconStyle}"/>
+                        </Border>
+
+                        <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                            <TextBlock Text="Tổng đơn hàng" FontSize="14" Foreground="{StaticResource SecondaryTextColor}" />
+                            <TextBlock x:Name="TxtTotalOrders" FontSize="26" FontWeight="Bold" Text="0"
+                                       Foreground="{StaticResource OrdersBrush}"/>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+                <Border Style="{StaticResource StatCardStyle}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Border Grid.Column="0" Background="{StaticResource ItemsBrush}" 
+                                Style="{StaticResource StatIconBackgroundStyle}">
+                            <TextBlock Text="&#xE756;" Style="{StaticResource StatCardIconStyle}"/>
+                        </Border>
+
+                        <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                            <TextBlock Text="Tổng món bán ra" FontSize="14" Foreground="{StaticResource SecondaryTextColor}" />
+                            <TextBlock x:Name="TxtTotalItems" FontSize="26" FontWeight="Bold" Text="0"
+                                       Foreground="{StaticResource ItemsBrush}"/>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+            </StackPanel>
+
+            <Border Grid.Column="1" Style="{StaticResource StatCardStyle}" Margin="10,0,0,0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" Text="🏆 Top 5 Món Bán Chạy" 
+                               FontSize="18" FontWeight="Bold" 
+                               Margin="0,0,0,15"
+                               Foreground="{StaticResource PrimaryTextColor}"/>
+
+                    <lvc:PieChart Grid.Row="1" x:Name="TopItemsChart"
+                                  LegendLocation="Bottom"
+                                  DataTooltip="{x:Null}"
+                                  Hoverable="True"
+                                  Margin="0,10,0,0">
+                        <lvc:PieChart.Series>
+                            <lvc:PieSeries Values="10" Title="Cà phê sữa đá" DataLabels="True" LabelPoint="{Binding Point.Participation, StringFormat={}{0:P0}}"/>
+                            <lvc:PieSeries Values="8" Title="Latte" DataLabels="True" LabelPoint="{Binding Point.Participation, StringFormat={}{0:P0}}"/>
+                            <lvc:PieSeries Values="5" Title="Trà đào" DataLabels="True" LabelPoint="{Binding Point.Participation, StringFormat={}{0:P0}}"/>
+                            <lvc:PieSeries Values="4" Title="Bạc xỉu" DataLabels="True" LabelPoint="{Binding Point.Participation, StringFormat={}{0:P0}}"/>
+                            <lvc:PieSeries Values="2" Title="Khác" DataLabels="True" LabelPoint="{Binding Point.Participation, StringFormat={}{0:P0}}"/>
+                        </lvc:PieChart.Series>
+                    </lvc:PieChart>
+                </Grid>
+            </Border>
+
+        </Grid>
+        <Border Grid.Row="2" Background="White" CornerRadius="10" Margin="0,20,0,0" Padding="10"
+                Style="{StaticResource StatCardStyle}">
+            <Grid>
+                <TextBlock Text="📅 Doanh thu theo ngày" FontSize="18" FontWeight="Bold" Margin="10,0,0,10"
+                           Foreground="{StaticResource PrimaryTextColor}"/>
+                <lvc:CartesianChart Grid.Row="1" x:Name="RevenueChart" Margin="0,40,0,0">
+                    <lvc:CartesianChart.Series>
+                        <lvc:LineSeries Title="Doanh thu" 
+                                        Values="200000, 500000, 300000, 700000, 450000"
+                                        Stroke="{StaticResource RevenueBrush}"
+                                        Fill="Transparent"/>
+                    </lvc:CartesianChart.Series>
+                    <lvc:CartesianChart.AxisX>
+                        <lvc:Axis Title="Ngày" Labels="1/11, 2/11, 3/11, 4/11, 5/11"/>
+                    </lvc:CartesianChart.AxisX>
+                    <lvc:CartesianChart.AxisY>
+                        <lvc:Axis Title="Doanh thu (VNĐ)" LabelFormatter="{Binding Value, StringFormat={}{0:N0}đ}"/>
+                    </lvc:CartesianChart.AxisY>
+                </lvc:CartesianChart>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

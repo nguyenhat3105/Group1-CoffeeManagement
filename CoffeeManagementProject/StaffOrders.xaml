@@ -1,0 +1,241 @@
+﻿<UserControl x:Class="CoffeeManagement.StaffOrders"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:CoffeeManagement"
+             Background="#F7F8FA">
+    <UserControl.Resources>
+        <!-- Softer, lighter palette -->
+        <SolidColorBrush x:Key="SuccessBrush" Color="#3BB77E"/>
+        <!-- softer green -->
+        <SolidColorBrush x:Key="DangerBrush" Color="#E2615E"/>
+        <!-- less saturated red -->
+        <SolidColorBrush x:Key="BorderBrush" Color="#E6E9EE"/>
+        <SolidColorBrush x:Key="TextMutedBrush" Color="#8A95A6"/>
+        <SolidColorBrush x:Key="PrimaryTextColor" Color="#0F1724"/>
+        <!-- deep but not pure black -->
+        <SolidColorBrush x:Key="CardBackground" Color="#FFFFFF"/>
+        <SolidColorBrush x:Key="LightText" Color="#FFFFFF"/>
+
+        <!-- Typography and base button style -->
+        <Style x:Key="BaseButton" TargetType="Button">
+            <Setter Property="Padding" Value="12,8"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Foreground" Value="{StaticResource LightText}"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            
+        </Style>
+        <Style x:Key="SuccessButton" TargetType="Button" BasedOn="{StaticResource BaseButton}">
+            <Setter Property="Background" Value="{StaticResource SuccessBrush}"/>
+        </Style>
+        <Style x:Key="DangerButton" TargetType="Button" BasedOn="{StaticResource BaseButton}">
+            <Setter Property="Background" Value="{StaticResource DangerBrush}"/>
+        </Style>
+
+        <!-- Card style for reuse if needed -->
+        <Style x:Key="CardBorderStyle" TargetType="Border">
+            <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="12"/>
+            <Setter Property="Background" Value="{StaticResource CardBackground}"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect ShadowDepth="0" Color="#000000" Opacity="0.06" BlurRadius="18"/>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Effect">
+                        <Setter.Value>
+                            <DropShadowEffect ShadowDepth="0" Color="#2A9D66" Opacity="0.09" BlurRadius="22"/>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="BorderBrush" Value="#D1EADF"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid>
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+
+            <ScrollViewer.Style>
+                <Style TargetType="ScrollViewer">
+                    <Setter Property="Visibility" Value="Visible"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=OrdersItemsControl, Path=HasItems}" Value="False">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ScrollViewer.Style>
+
+            <ItemsControl x:Name="OrdersItemsControl" Margin="14">
+
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border Width="380" MinHeight="380"
+                                Margin="12"
+                                Style="{StaticResource CardBorderStyle}">
+
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+
+                                <!-- Header: softer, with subtle rounded corners on top -->
+                                <Border Grid.Row="0"
+                                        Background="#1F6FA6"
+                                    CornerRadius="12,12,0,0"
+                                        Padding="16,14,16,14">
+                                    <StackPanel>
+                                        <TextBlock Text="{Binding Id, StringFormat='Order #{0}'}"
+                                                   FontWeight="Bold"
+                                                   FontSize="18"
+                                                   Foreground="{StaticResource LightText}"/>
+
+                                        <TextBlock Text="{Binding CreatedAt, StringFormat='Created: {0:G}'}"
+                                                   FontSize="12"
+                                                   Foreground="{StaticResource LightText}" Opacity="0.85"/>
+
+                                        <TextBlock FontSize="13"
+                                                   Margin="0,6,0,0"
+                                                   Foreground="{StaticResource LightText}">
+                                            <Run Text="Customer: "/>
+                                            <Run Text="{Binding Customer.Username, FallbackValue='Guest'}" FontWeight="SemiBold"/>
+                                        </TextBlock>
+                                    </StackPanel>
+                                </Border>
+
+                                <!-- Body: scrollable items area -->
+                                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto"
+                                              MinHeight="150" Padding="16,14,16,14">
+                                    <StackPanel>
+                                        <Border x:Name="NoteBorder" CornerRadius="6" Background="#FFF7ED" BorderBrush="#FDEBCD" BorderThickness="1" Margin="0,5,0,5" Padding="10">
+                                            <TextBlock Text="{Binding Note}" Foreground="#7A4B00" FontSize="13" TextWrapping="Wrap" FontStyle="Italic" FontWeight="SemiBold"/>
+                                            <Border.Style>
+                                                <Style TargetType="Border">
+                                                    <Setter Property="Visibility" Value="Visible"/>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Note}" Value="{x:Null}">
+                                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding Note}" Value="">
+                                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Border.Style>
+                                        </Border>
+
+                                        <TextBlock Text="Items:" FontWeight="Bold" Margin="0,8,0,6" Foreground="{StaticResource PrimaryTextColor}"/>
+
+                                        <ItemsControl ItemsSource="{Binding OrderItems}">
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Grid Margin="0,6,0,6">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="*"/>
+                                                            <ColumnDefinition Width="Auto"/>
+                                                            <ColumnDefinition Width="Auto"/>
+                                                        </Grid.ColumnDefinitions>
+                                                        <TextBlock Grid.Column="0" Text="{Binding MenuItem.Name}" TextWrapping="Wrap" VerticalAlignment="Center"/>
+                                                        <TextBlock Grid.Column="1" Text="{Binding Quantity, StringFormat='x{0}'}" Margin="10,0,0,0" VerticalAlignment="Center" Foreground="{StaticResource TextMutedBrush}"/>
+                                                        <TextBlock Grid.Column="2" Text="{Binding UnitPrice, StringFormat=' {0:C0}'}" Margin="10,0,0,0" TextAlignment="Right" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                                                    </Grid>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                    </StackPanel>
+                                </ScrollViewer>
+
+                                <!-- Footer: totals and actions -->
+                                <StackPanel Grid.Row="2" Margin="16,0,16,16">
+                                    <Separator Margin="0,0,0,12" Background="{StaticResource BorderBrush}" Height="1"/>
+
+                                    <TextBlock Text="{Binding TotalAmount, StringFormat='Total: {0:C0}'}"
+                                               FontWeight="Bold"
+                                               FontSize="20" Foreground="{StaticResource SuccessBrush}" HorizontalAlignment="Right"
+                                               Margin="0,0,0,12"/>
+
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Button Grid.Column="0"
+                                                Content="Mark Complete Paid"
+                                                Click="BtnMarkComplete_Click"
+                                                Margin="0,0,6,0"
+                                                Style="{StaticResource SuccessButton}"/>
+                                        <Button Grid.Column="1"
+                                                Content="Reject"
+                                                Click="BtnReject_Click"
+                                                Margin="6,0,0,0"
+                                                Style="{StaticResource DangerButton}"/>
+                                    </Grid>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+
+        <!-- Empty state centered card -->
+        <Border x:Name="EmptyStatePanel"
+                Margin="20"
+                Padding="30"
+                Background="White"
+                CornerRadius="12"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                BorderBrush="{StaticResource BorderBrush}"
+                BorderThickness="1"
+                Width="420">
+
+            <Border.Style>
+                <Style TargetType="Border">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=OrdersItemsControl, Path=HasItems}" Value="False">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Border.Style>
+
+            <Border.Effect>
+                <DropShadowEffect ShadowDepth="0" Color="#000000" Opacity="0.06" BlurRadius="18"/>
+            </Border.Effect>
+
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+                <TextBlock Text="☕"
+                           FontSize="48"
+                           HorizontalAlignment="Center"
+                           Margin="0,0,0,10"/>
+
+                <TextBlock Text="Chưa có đơn hàng mới"
+                           FontSize="18"
+                           FontWeight="Bold"
+                           Foreground="{StaticResource PrimaryTextColor}"
+                           HorizontalAlignment="Center"/>
+
+                <TextBlock Text="Tất cả đơn hàng đang chờ sẽ hiển thị ở đây."
+                           FontSize="14"
+                           Foreground="{StaticResource TextMutedBrush}"
+                           HorizontalAlignment="Center"
+                           Margin="0,5,0,0"/>
+            </StackPanel>
+        </Border>
+
+    </Grid>
+</UserControl>

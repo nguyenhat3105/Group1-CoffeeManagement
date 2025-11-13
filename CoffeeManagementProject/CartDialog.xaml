@@ -1,0 +1,81 @@
+﻿<Window x:Class="CoffeeManagement.CartDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Cart" Height="500" Width="650"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize"
+        Background="#FFF9F9F9">
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Tiêu đề -->
+        <TextBlock Text="Your Cart" 
+                   FontSize="22" FontWeight="Bold"
+                   Margin="0,0,0,10"
+                   Foreground="#333"/>
+
+        <!-- Danh sách món -->
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <ItemsControl x:Name="CartList">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border BorderBrush="#DDD" BorderThickness="1" Margin="0,5" CornerRadius="8" Background="White">
+                            <Grid Margin="10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="80"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <!-- Hình -->
+                                <Image Source="{Binding Item.ImgUrl}" Width="70" Height="70" Stretch="UniformToFill" Margin="5"/>
+
+                                <!-- Thông tin -->
+                                <StackPanel Grid.Column="1" Margin="10,0">
+                                    <TextBlock Text="{Binding Item.Name}" FontWeight="Bold" FontSize="15"/>
+                                    <TextBlock Text="{Binding Item.Price, StringFormat='{}{0:C0}'}" Foreground="Green" FontSize="13"/>
+                                </StackPanel>
+
+                                <!-- Cột thao tác -->
+                                <StackPanel Grid.Column="2" HorizontalAlignment="Right">
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                        <Button Content="-" Width="25" Height="25" Margin="2"
+                                                Click="BtnDecrease_Click"/>
+                                        <TextBlock Text="{Binding Quantity}" VerticalAlignment="Center" Margin="4"/>
+                                        <Button Content="+" Width="25" Height="25" Margin="2"
+                                                Click="BtnIncrease_Click"/>
+                                    </StackPanel>
+
+                                    <TextBlock Text="{Binding TotalPrice, StringFormat='{}{0:C0}'}"
+                                               HorizontalAlignment="Right"
+                                               FontWeight="Bold" Foreground="#444" Margin="0,4,0,0"/>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+
+        <!-- Tổng tiền + nút -->
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+            <TextBlock Text="Total: " FontSize="16" VerticalAlignment="Center"/>
+            <TextBlock x:Name="TxtTotal"
+                       Text="0"
+                       FontWeight="Bold"
+                       FontSize="16"
+                       Foreground="#008000"
+                       Margin="5,0"/>
+            <Button Content="Checkout"
+                    Width="120" Height="35"
+                    Margin="15,0,0,0"
+                    Background="#007ACC" Foreground="White"
+                    Click="BtnCheckout_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

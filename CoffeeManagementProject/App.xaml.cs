@@ -2,7 +2,7 @@
 using System.Data;
 using System.Windows;
 
-namespace CoffeeManagementProject
+namespace CoffeeManagement
 {
     /// <summary>
     /// Interaction logic for App.xaml

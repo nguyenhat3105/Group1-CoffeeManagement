@@ -1,0 +1,284 @@
+﻿<UserControl x:Class="CoffeeManagement.AdminPromotionsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CoffeeManagement"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="900"
+             Background="#F8F6F2"
+             x:Name="AdminPromoViewRoot">
+
+
+
+    <UserControl.Resources>
+        <!-- ==== GIỮ NGUYÊN TOÀN BỘ STYLE VÀ LOGIC ==== -->
+        <!-- (Đoạn Resource của bạn giữ nguyên, chỉ thêm một vài họa tiết trang trí) -->
+
+        <FontFamily x:Key="FontAwesome">/Fonts/#Font Awesome 6 Free Solid</FontFamily>
+        <SolidColorBrush x:Key="PrimaryColor" Color="#D4AF37"/>
+        <SolidColorBrush x:Key="DarkTextColor" Color="#1C1C1C"/>
+        <SolidColorBrush x:Key="BorderColor" Color="#E0E0E0"/>
+        <SolidColorBrush x:Key="CardBackground" Color="#FFFFFF"/>
+        <SolidColorBrush x:Key="TextMutedBrush" Color="#6c757d"/>
+        <SolidColorBrush x:Key="SuccessBrush" Color="#2E8B57"/>
+        <SolidColorBrush x:Key="DangerBrush" Color="#D9534F"/>
+        <SolidColorBrush x:Key="DisabledBrush" Color="#B0B0B0"/>
+
+        <!-- 🌸 Thêm họa tiết nền nhẹ trên card -->
+        <ImageBrush x:Key="PromoPattern" 
+                     
+                    Opacity="0.05" Stretch="UniformToFill"/>
+
+        <Style x:Key="BaseButton" TargetType="Button">
+            <Setter Property="Padding" Value="10,5"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect Color="#555" BlurRadius="5" Opacity="0.3"/>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="ButtonBorder" CornerRadius="6"
+                                Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"
+                                              Margin="{TemplateBinding Padding}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="ButtonBorder" Property="RenderTransform">
+                                    <Setter.Value>
+                                        <ScaleTransform ScaleX="1.03" ScaleY="1.03"/>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="ButtonBorder" Property="Opacity" Value="0.95"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="ButtonBorder" Property="Background" Value="{StaticResource DisabledBrush}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="SuccessButton" TargetType="Button" BasedOn="{StaticResource BaseButton}">
+            <Setter Property="Background" Value="{StaticResource SuccessBrush}"/>
+        </Style>
+        <Style x:Key="DangerButton" TargetType="Button" BasedOn="{StaticResource BaseButton}">
+            <Setter Property="Background" Value="{StaticResource DangerBrush}"/>
+        </Style>
+        <Style x:Key="PrimaryButton" TargetType="Button" BasedOn="{StaticResource BaseButton}">
+            <Setter Property="Background" Value="{StaticResource PrimaryColor}"/>
+            <Setter Property="Foreground" Value="{StaticResource DarkTextColor}"/>
+        </Style>
+
+        <Style TargetType="TextBox" x:Key="SearchTextBoxStyle">
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="30,5,10,5"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BorderColor}"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Height" Value="38"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Grid>
+                            <Border x:Name="border"
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    CornerRadius="6"/>
+                            <TextBlock Text="" 
+                                       FontFamily="{StaticResource FontAwesome}"
+                                       Foreground="{StaticResource TextMutedBrush}"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Left"
+                                       Margin="10,0,0,0"/>
+                            <ScrollViewer x:Name="PART_ContentHost" Margin="{TemplateBinding Padding}"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- 💎 CARD KHUYẾN MÃI -->
+        <DataTemplate x:Key="PromotionCardTemplate">
+            <Border Width="360" Margin="10"
+                    Background="{StaticResource CardBackground}" CornerRadius="12"
+                    BorderBrush="{StaticResource BorderColor}" BorderThickness="1"
+                    >
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth="2" Color="#A38E5F" Opacity="0.25" BlurRadius="10"/>
+                </Border.Effect>
+                <StackPanel Margin="15">
+                    <!-- Header -->
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Text="{Binding Code}"
+                                   FontSize="20" FontWeight="Bold"
+                                   Foreground="{StaticResource DarkTextColor}"
+                                   VerticalAlignment="Center"
+                                   TextTrimming="CharacterEllipsis"/>
+                        <Border Grid.Column="1" Padding="8,3" CornerRadius="6"
+                                VerticalAlignment="Center">
+                            <Border.Style>
+                                <Style TargetType="Border">
+                                    <Setter Property="Background" Value="{StaticResource DisabledBrush}"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsActive}" Value="True">
+                                            <Setter Property="Background" Value="{StaticResource SuccessBrush}"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+                            <TextBlock FontSize="11" FontWeight="Bold"
+                                       Foreground="White" TextAlignment="Center">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Text" Value="ĐÃ TẮT"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsActive}" Value="True">
+                                                <Setter Property="Text" Value="ĐANG HOẠT ĐỘNG"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </Border>
+                    </Grid>
+
+                    <TextBlock Text="{Binding Description, FallbackValue='Không có mô tả'}"
+                               TextWrapping="Wrap"
+                               MinHeight="36"
+                               Foreground="{StaticResource DarkTextColor}"
+                               FontSize="14"
+                               Margin="0,10,0,0"/>
+
+                    <Separator Margin="0,12"/>
+
+                    <!-- Info grid -->
+                    <Grid Margin="0,5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="Giảm giá" FontWeight="Medium" Foreground="{StaticResource TextMutedBrush}" Margin="0,0,15,0"/>
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="Đơn tối thiểu" FontWeight="Medium" Foreground="{StaticResource TextMutedBrush}" Margin="0,0,15,0"/>
+                        <TextBlock Grid.Row="2" Grid.Column="0" Text="Giảm tối đa" FontWeight="Medium" Foreground="{StaticResource TextMutedBrush}" Margin="0,0,15,0"/>
+                        <TextBlock Grid.Row="3" Grid.Column="0" Text="Hạn dùng" FontWeight="Medium" Foreground="{StaticResource TextMutedBrush}" Margin="0,0,15,0"/>
+                        <TextBlock Grid.Row="4" Grid.Column="0" Text="Lượt dùng" FontWeight="Medium" Foreground="{StaticResource TextMutedBrush}" Margin="0,0,15,0"/>
+
+                        <TextBlock Grid.Row="0" Grid.Column="1" FontWeight="Bold" Foreground="{StaticResource SuccessBrush}" FontSize="14">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Text" Value="{Binding DiscountValue, StringFormat='{}{0:N0}đ'}"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding DiscountType}" Value="1">
+                                            <Setter Property="Text" Value="{Binding DiscountValue, StringFormat='{}{0}%'}"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                        <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding MinPurchaseAmount, StringFormat='{}{0:N0}đ'}" FontWeight="SemiBold"/>
+                        <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding MaxDiscountAmount, StringFormat='{}{0:N0}đ', FallbackValue='Không giới hạn', TargetNullValue='Không giới h'}" FontWeight="SemiBold"/>
+                        <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding EndDate, StringFormat='dd/MM/yyyy'}" FontWeight="SemiBold"/>
+                        <TextBlock Grid.Row="4" Grid.Column="1" FontWeight="SemiBold">
+                            <Run Text="{Binding CurrentUsage}"/>
+                            <Run Text="/"/>
+                            <Run Text="{Binding UsageLimit, FallbackValue='Không giới hạn', TargetNullValue='Không giới hạn'}"/>
+                        </TextBlock>
+                    </Grid>
+
+                    <Separator Margin="0,12"/>
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0"
+                                Visibility="{Binding ElementName=BtnAddPromotion, Path=Visibility}">
+                        <Button x:Name="BtnEditPromotion"
+                                Content="Sửa"
+                                Click="BtnEdit_Click"
+                                Tag="{Binding}"
+                                Margin="0,0,5,0"
+                                Style="{StaticResource PrimaryButton}"/>
+                        <Button x:Name="BtnDeletePromotion"
+                                Content="Xóa"
+                                Click="BtnDelete_Click"
+                                Tag="{Binding}"
+                                Style="{StaticResource DangerButton}"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+        </DataTemplate>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- HEADER -->
+        <Border Grid.Row="0" Background="{StaticResource CardBackground}" 
+                BorderBrush="{StaticResource BorderColor}" BorderThickness="0,0,0,1" 
+                Padding="20,15">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="☕ " FontSize="26" Margin="0,0,5,0"/>
+                    <TextBlock Text="Quản Lý Khuyến Mãi" 
+                               FontSize="24" FontWeight="Bold"
+                               Foreground="{StaticResource DarkTextColor}"
+                               VerticalAlignment="Center"/>
+                </StackPanel>
+
+                <TextBox Grid.Column="1" 
+                         x:Name="TxtSearchPromotion"
+                         TextChanged="TxtSearchPromotion_TextChanged"
+                         Style="{StaticResource SearchTextBoxStyle}"
+                         Width="300"
+                         Margin="0,0,10,0"/>
+
+                <Button Grid.Column="2" 
+                        x:Name="BtnAddPromotion"
+                        Click="BtnAdd_Click"
+                        Content="Tạo Khuyến Mãi Mới" 
+                        Style="{StaticResource SuccessButton}"
+                        Padding="10,8"/>
+            </Grid>
+        </Border>
+
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <ItemsControl x:Name="PromotionsItemsControl"
+                          ItemTemplate="{StaticResource PromotionCardTemplate}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Margin="15" HorizontalAlignment="Center"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

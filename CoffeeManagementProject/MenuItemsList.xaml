@@ -1,0 +1,220 @@
+﻿<UserControl x:Class="CoffeeManagement.MenuItemsList"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             d:DesignHeight="600" d:DesignWidth="900"
+             Background="Transparent">
+
+    <UserControl.Resources>
+        <SolidColorBrush x:Key="AccentColor" Color="#D4AF37"/>
+        <SolidColorBrush x:Key="AccentForeground" Color="#2A2A2A"/>
+        <SolidColorBrush x:Key="AccentHover" Color="#E6B93F"/>
+
+        <SolidColorBrush x:Key="SecondaryColor" Color="#6c757d"/>
+        <SolidColorBrush x:Key="SecondaryForeground" Color="#FFFFFF"/>
+        <SolidColorBrush x:Key="SecondaryHover" Color="#5a6268"/>
+
+        <SolidColorBrush x:Key="DangerColor" Color="#dc3545"/>
+        <SolidColorBrush x:Key="DangerForeground" Color="#FFFFFF"/>
+        <SolidColorBrush x:Key="DangerHover" Color="#c82333"/>
+
+        <SolidColorBrush x:Key="DataGridHeaderBackground" Color="#3C3C3C"/>
+        <SolidColorBrush x:Key="DataGridHeaderText" Color="#E0E0E0"/>
+        <SolidColorBrush x:Key="DataGridRowSelected" Color="#FEF8E7"/>
+        <SolidColorBrush x:Key="DataGridRowHover" Color="#F8F9FA"/>
+        <SolidColorBrush x:Key="DataGridRowBackground" Color="#FFFFFF"/>
+        <SolidColorBrush x:Key="DataGridAltRowBackground" Color="#FDFDFD"/>
+
+        <Style x:Key="BaseActionButtonStyle" TargetType="Button">
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Padding" Value="15,8"/>
+            <Setter Property="Margin" Value="5,0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Width" Value="100"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" 
+                                Background="{TemplateBinding Background}" 
+                                CornerRadius="5">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Opacity" Value="0.6"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="AddButtonStyle" TargetType="Button" BasedOn="{StaticResource BaseActionButtonStyle}">
+            <Setter Property="Background" Value="{StaticResource AccentColor}"/>
+            <Setter Property="Foreground" Value="{StaticResource AccentForeground}"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="{StaticResource AccentHover}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="EditButtonStyle" TargetType="Button" BasedOn="{StaticResource BaseActionButtonStyle}">
+            <Setter Property="Background" Value="{StaticResource SecondaryColor}"/>
+            <Setter Property="Foreground" Value="{StaticResource SecondaryForeground}"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="{StaticResource SecondaryHover}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="DeleteButtonStyle" TargetType="Button" BasedOn="{StaticResource BaseActionButtonStyle}">
+            <Setter Property="Background" Value="{StaticResource DangerColor}"/>
+            <Setter Property="Foreground" Value="{StaticResource DangerForeground}"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="{StaticResource DangerHover}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="DataGrid" x:Key="ModernDataGridStyle">
+            <Setter Property="Background" Value="{StaticResource DataGridRowBackground}"/>
+            <Setter Property="RowBackground" Value="{StaticResource DataGridRowBackground}"/>
+            <Setter Property="AlternatingRowBackground" Value="{StaticResource DataGridAltRowBackground}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="#E0E0E0"/>
+            <Setter Property="GridLinesVisibility" Value="Horizontal"/>
+            <Setter Property="HorizontalGridLinesBrush" Value="#E0E0E0"/>
+            <Setter Property="AutoGenerateColumns" Value="False"/>
+            <Setter Property="SelectionMode" Value="Single"/>
+            <Setter Property="IsReadOnly" Value="True"/>
+            <Setter Property="CanUserAddRows" Value="False"/>
+            <Setter Property="CanUserResizeRows" Value="False"/>
+            <Setter Property="HeadersVisibility" Value="Column"/>
+        </Style>
+
+        <Style TargetType="DataGridColumnHeader" x:Key="DataGridHeaderStyle">
+            <Setter Property="Background" Value="{StaticResource DataGridHeaderBackground}"/>
+            <Setter Property="Foreground" Value="{StaticResource DataGridHeaderText}"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Padding" Value="12,8"/>
+            <Setter Property="BorderThickness" Value="0,0,1,0"/>
+            <Setter Property="BorderBrush" Value="#555"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        </Style>
+
+        <Style TargetType="DataGridCell" x:Key="DataGridCellStyle">
+            <Setter Property="Padding" Value="12,8"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Foreground" Value="#333"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="DataGridCell">
+                        <Border Padding="{TemplateBinding Padding}" 
+                                Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="{StaticResource DataGridRowSelected}"/>
+                    <Setter Property="Foreground" Value="{StaticResource AccentForeground}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="DataGridRow" x:Key="DataGridRowStyle">
+            <Setter Property="Background" Value="{Binding Background, RelativeSource={RelativeSource Self}}"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="{StaticResource DataGridRowHover}"/>
+                </Trigger>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="{StaticResource DataGridRowSelected}"/>
+                    <Setter Property="Foreground" Value="{StaticResource AccentForeground}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="CheckBox" x:Key="CenterCheckBoxStyle">
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+
+    </UserControl.Resources>
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" Margin="0,0,0,15">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Text="Menu Items Management"
+                           FontSize="24"
+                           FontWeight="SemiBold"
+                           Foreground="#333"
+                           Grid.Column="0"
+                           VerticalAlignment="Center"/>
+
+                <StackPanel Orientation="Horizontal"
+                            Grid.Column="1"
+                            HorizontalAlignment="Right">
+
+                    <Button x:Name="BtnAdd" Content="Add New" 
+                            Style="{StaticResource AddButtonStyle}" 
+                            Click="BtnAdd_Click"/>
+
+                    <Button x:Name="BtnEdit" Content="Edit" 
+                            Style="{StaticResource EditButtonStyle}" 
+                            Click="BtnEdit_Click"/>
+
+                    <Button x:Name="BtnDelete" Content="Delete" 
+                            Style="{StaticResource DeleteButtonStyle}" 
+                            Click="BtnDelete_Click"/>
+
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <DataGrid x:Name="GridMenuItems"
+                  Grid.Row="1"
+                  Style="{StaticResource ModernDataGridStyle}"
+                  ColumnHeaderStyle="{StaticResource DataGridHeaderStyle}"
+                  CellStyle="{StaticResource DataGridCellStyle}"
+                  RowStyle="{StaticResource DataGridRowStyle}"
+                  AlternationCount="2">
+
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="60"/>
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*"/>
+                <DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="2*"/>
+                <DataGridTextColumn Header="Price" Binding="{Binding Price, StringFormat='{}{0:N0}đ'}" Width="120"/>
+                <DataGridTextColumn Header="Category" Binding="{Binding Category.Name}" Width="150"/>
+
+                <DataGridCheckBoxColumn Header="Available" Binding="{Binding IsAvailable}" 
+                                        Width="100" 
+                                        ElementStyle="{StaticResource CenterCheckBoxStyle}"
+                                        EditingElementStyle="{StaticResource CenterCheckBoxStyle}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+    </Grid>
+</UserControl>
