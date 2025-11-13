@@ -1,0 +1,82 @@
+name: .NET Desktop CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        configuration: [Release] # Có thể thêm Debug nếu cần
+
+    runs-on: windows-latest
+
+    env:
+      Solution_Name: CoffeeManagement.sln
+      Test_Project_Path: CoffeeManagement.Tests\CoffeeManagement.Tests.csproj
+      Wap_Project_Directory: CoffeeManagement.Package
+      Wap_Project_Path: CoffeeManagement.Package\CoffeeManagement.Package.wapproj
+
+    steps:
+    # 1️⃣ Lấy mã nguồn
+    - name: Checkout source
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    # 2️⃣ Cài .NET 8 SDK
+    - name: Setup .NET SDK
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.0.x
+
+    # 3️⃣ Thêm MSBuild vào PATH
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v2
+
+    # 4️⃣ Chạy Unit Test (nếu có)
+    - name: Run tests
+      run: dotnet test $env:Test_Project_Path --configuration $env:Configuration
+      env:
+        Configuration: ${{ matrix.configuration }}
+
+    # 5️⃣ Khôi phục NuGet packages
+    - name: Restore dependencies
+      run: msbuild $env:Solution_Name /t:Restore /p:Configuration=$env:Configuration
+      env:
+        Configuration: ${{ matrix.configuration }}
+
+    # 6️⃣ Giải mã certificate (nếu có ký ứng dụng)
+    - name: Decode signing certificate
+      if: ${{ secrets.Base64_Encoded_Pfx != '' }}
+      run: |
+        $pfx_cert_byte = [System.Convert]::FromBase64String("${{ secrets.Base64_Encoded_Pfx }}")
+        $certificatePath = Join-Path -Path $env:Wap_Project_Directory -ChildPath GitHubActionsWorkflow.pfx
+        [IO.File]::WriteAllBytes("$certificatePath", $pfx_cert_byte)
+
+    # 7️⃣ Build & Package thành MSIX
+    - name: Build app package
+      run: |
+        msbuild $env:Wap_Project_Path /p:Configuration=$env:Configuration `
+          /p:UapAppxPackageBuildMode=StoreUpload `
+          /p:AppxBundle=Always `
+          /p:AppxBundlePlatforms="x86|x64" `
+          /p:PackageCertificateKeyFile=GitHubActionsWorkflow.pfx `
+          /p:PackageCertificatePassword=${{ secrets.Pfx_Key }}
+      env:
+        Configuration: ${{ matrix.configuration }}
+
+    # 8️⃣ Xoá certificate sau khi build
+    - name: Clean up certificate
+      if: ${{ secrets.Base64_Encoded_Pfx != '' }}
+      run: Remove-Item -path $env:Wap_Project_Directory\GitHubActionsWorkflow.pfx -Force
+
+    # 9️⃣ Upload kết quả build
+    - name: Upload MSIX artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: CoffeeManagement_MSIX
+        path: ${{ env.Wap_Project_Directory }}\AppPackages
