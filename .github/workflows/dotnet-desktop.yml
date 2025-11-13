@@ -10,7 +10,7 @@ jobs:
   build:
     strategy:
       matrix:
-        configuration: [Release] # Có thể thêm Debug nếu cần
+        configuration: [Release]
 
     runs-on: windows-latest
 
@@ -21,43 +21,47 @@ jobs:
       Wap_Project_Path: CoffeeManagement.Package\CoffeeManagement.Package.wapproj
 
     steps:
-    # 1️⃣ Lấy mã nguồn
+    # 1️⃣ Checkout source
     - name: Checkout source
       uses: actions/checkout@v4
       with:
         fetch-depth: 0
 
-    # 2️⃣ Cài .NET 8 SDK
+    # 2️⃣ Setup .NET SDK
     - name: Setup .NET SDK
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 8.0.x
 
-    # 3️⃣ Thêm MSBuild vào PATH
+    # 3️⃣ Setup MSBuild
     - name: Setup MSBuild
       uses: microsoft/setup-msbuild@v2
 
-    # 4️⃣ Chạy Unit Test (nếu có)
+    # 4️⃣ Run tests
     - name: Run tests
       run: dotnet test $env:Test_Project_Path --configuration $env:Configuration
       env:
         Configuration: ${{ matrix.configuration }}
 
-    # 5️⃣ Khôi phục NuGet packages
+    # 5️⃣ Restore dependencies
     - name: Restore dependencies
       run: msbuild $env:Solution_Name /t:Restore /p:Configuration=$env:Configuration
       env:
         Configuration: ${{ matrix.configuration }}
 
-    # 6️⃣ Giải mã certificate (nếu có ký ứng dụng)
+    # 6️⃣ Decode signing certificate (only if secret exists)
     - name: Decode signing certificate
-      if: ${{ secrets.Base64_Encoded_Pfx != '' }}
+      if: ${{ env.Base64_Encoded_Pfx != '' }}
+      shell: pwsh
       run: |
-        $pfx_cert_byte = [System.Convert]::FromBase64String("${{ secrets.Base64_Encoded_Pfx }}")
-        $certificatePath = Join-Path -Path $env:Wap_Project_Directory -ChildPath GitHubActionsWorkflow.pfx
-        [IO.File]::WriteAllBytes("$certificatePath", $pfx_cert_byte)
+        $pfx = "${{ secrets.Base64_Encoded_Pfx }}"
+        if (![string]::IsNullOrEmpty($pfx)) {
+          $pfx_cert_byte = [System.Convert]::FromBase64String($pfx)
+          $certificatePath = Join-Path -Path $env:Wap_Project_Directory -ChildPath GitHubActionsWorkflow.pfx
+          [IO.File]::WriteAllBytes("$certificatePath", $pfx_cert_byte)
+        }
 
-    # 7️⃣ Build & Package thành MSIX
+    # 7️⃣ Build app package
     - name: Build app package
       run: |
         msbuild $env:Wap_Project_Path /p:Configuration=$env:Configuration `
@@ -69,12 +73,16 @@ jobs:
       env:
         Configuration: ${{ matrix.configuration }}
 
-    # 8️⃣ Xoá certificate sau khi build
+    # 8️⃣ Clean up certificate
     - name: Clean up certificate
-      if: ${{ secrets.Base64_Encoded_Pfx != '' }}
-      run: Remove-Item -path $env:Wap_Project_Directory\GitHubActionsWorkflow.pfx -Force
+      shell: pwsh
+      run: |
+        $certPath = "$env:Wap_Project_Directory\GitHubActionsWorkflow.pfx"
+        if (Test-Path $certPath) {
+          Remove-Item -Path $certPath -Force
+        }
 
-    # 9️⃣ Upload kết quả build
+    # 9️⃣ Upload artifact
     - name: Upload MSIX artifacts
       uses: actions/upload-artifact@v4
       with:
