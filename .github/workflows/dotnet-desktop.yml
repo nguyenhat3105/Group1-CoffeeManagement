@@ -1,0 +1,90 @@
+name: .NET Desktop CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        configuration: [Release]
+
+    runs-on: windows-latest
+
+    env:
+      Solution_Name: CoffeeManagementProject.sln
+      Test_Project_Path: CoffeeManagementProject.Tests\CoffeeManagement.Tests.csproj
+      Wap_Project_Directory: CoffeeManagementProject.Package
+      Wap_Project_Path: CoffeeManagementProject.Package\CoffeeManagement.Package.wapproj
+
+    steps:
+    # 1️⃣ Checkout source
+    - name: Checkout source
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    # 2️⃣ Setup .NET SDK
+    - name: Setup .NET SDK
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.0.x
+
+    # 3️⃣ Setup MSBuild
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v2
+
+    # # 4️⃣ Run tests
+    # - name: Run tests
+    #   run: dotnet test $env:Test_Project_Path --configuration $env:Configuration
+    #   env:
+    #     Configuration: ${{ matrix.configuration }}
+
+    # 5️⃣ Restore dependencies
+    - name: Restore dependencies
+      run: msbuild $env:Solution_Name /t:Restore /p:Configuration=$env:Configuration
+      env:
+        Configuration: ${{ matrix.configuration }}
+
+    # 6️⃣ Decode signing certificate (only if secret exists)
+    - name: Decode signing certificate
+      if: ${{ env.Base64_Encoded_Pfx != '' }}
+      shell: pwsh
+      run: |
+        $pfx = "${{ secrets.Base64_Encoded_Pfx }}"
+        if (![string]::IsNullOrEmpty($pfx)) {
+          $pfx_cert_byte = [System.Convert]::FromBase64String($pfx)
+          $certificatePath = Join-Path -Path $env:Wap_Project_Directory -ChildPath GitHubActionsWorkflow.pfx
+          [IO.File]::WriteAllBytes("$certificatePath", $pfx_cert_byte)
+        }
+
+    # 7️⃣ Build app package
+    - name: Build app package
+      run: |
+        msbuild $env:Wap_Project_Path /p:Configuration=$env:Configuration `
+          /p:UapAppxPackageBuildMode=StoreUpload `
+          /p:AppxBundle=Always `
+          /p:AppxBundlePlatforms="x86|x64" `
+          /p:PackageCertificateKeyFile=GitHubActionsWorkflow.pfx `
+          /p:PackageCertificatePassword=${{ secrets.Pfx_Key }}
+      env:
+        Configuration: ${{ matrix.configuration }}
+
+    # 8️⃣ Clean up certificate
+    - name: Clean up certificate
+      shell: pwsh
+      run: |
+        $certPath = "$env:Wap_Project_Directory\GitHubActionsWorkflow.pfx"
+        if (Test-Path $certPath) {
+          Remove-Item -Path $certPath -Force
+        }
+
+    # 9️⃣ Upload artifact
+    - name: Upload MSIX artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: CoffeeManagement_MSIX
+        path: ${{ env.Wap_Project_Directory }}\AppPackages
