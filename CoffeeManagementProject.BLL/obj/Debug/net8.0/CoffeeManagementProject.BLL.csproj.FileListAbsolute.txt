@@ -1,0 +1,16 @@
+C:\Users\CONG NHAT\Downloads\CoffeeManagementProject\CoffeeManagementProject.BLL\bin\Debug\net8.0\CoffeeManagementProject.BLL.deps.json
+C:\Users\CONG NHAT\Downloads\CoffeeManagementProject\CoffeeManagementProject.BLL\bin\Debug\net8.0\CoffeeManagementProject.BLL.dll
+C:\Users\CONG NHAT\Downloads\CoffeeManagementProject\CoffeeManagementProject.BLL\bin\Debug\net8.0\CoffeeManagementProject.BLL.pdb
+C:\Users\CONG NHAT\Downloads\CoffeeManagementProject\CoffeeManagementProject.BLL\bin\Debug\net8.0\CoffeeManagementProject.DAL.dll
+C:\Users\CONG NHAT\Downloads\CoffeeManagementProject\CoffeeManagementProject.BLL\bin\Debug\net8.0\CoffeeManagementProject.DAL.pdb
+C:\Users\CONG NHAT\Downloads\CoffeeManagementProject\CoffeeManagementProject.BLL\obj\Debug\net8.0\CoffeeManagementProject.BLL.csproj.AssemblyReference.cache
+C:\Users\CONG NHAT\Downloads\CoffeeManagementProject\CoffeeManagementProject.BLL\obj\Debug\net8.0\CoffeeManagementProject.BLL.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\CONG NHAT\Downloads\CoffeeManagementProject\CoffeeManagementProject.BLL\obj\Debug\net8.0\CoffeeManagementProject.BLL.AssemblyInfoInputs.cache
+C:\Users\CONG NHAT\Downloads\CoffeeManagementProject\CoffeeManagementProject.BLL\obj\Debug\net8.0\CoffeeManagementProject.BLL.AssemblyInfo.cs
+C:\Users\CONG NHAT\Downloads\CoffeeManagementProject\CoffeeManagementProject.BLL\obj\Debug\net8.0\CoffeeManagementProject.BLL.csproj.CoreCompileInputs.cache
+C:\Users\CONG NHAT\Downloads\CoffeeManagementProject\CoffeeManagementProject.BLL\obj\Debug\net8.0\CoffeeManagementProject.BLL.sourcelink.json
+C:\Users\CONG NHAT\Downloads\CoffeeManagementProject\CoffeeManagementProject.BLL\obj\Debug\net8.0\CoffeeMa.472730EF.Up2Date
+C:\Users\CONG NHAT\Downloads\CoffeeManagementProject\CoffeeManagementProject.BLL\obj\Debug\net8.0\CoffeeManagementProject.BLL.dll
+C:\Users\CONG NHAT\Downloads\CoffeeManagementProject\CoffeeManagementProject.BLL\obj\Debug\net8.0\refint\CoffeeManagementProject.BLL.dll
+C:\Users\CONG NHAT\Downloads\CoffeeManagementProject\CoffeeManagementProject.BLL\obj\Debug\net8.0\CoffeeManagementProject.BLL.pdb
+C:\Users\CONG NHAT\Downloads\CoffeeManagementProject\CoffeeManagementProject.BLL\obj\Debug\net8.0\ref\CoffeeManagementProject.BLL.dll

@@ -1,0 +1,15 @@
+C:\Users\CONG NHAT\Downloads\CoffeeManagementProject\CoffeeManagementProject.DAL\bin\Debug\net8.0\CoffeeManagementProject.DAL.deps.json
+C:\Users\CONG NHAT\Downloads\CoffeeManagementProject\CoffeeManagementProject.DAL\bin\Debug\net8.0\CoffeeManagementProject.DAL.dll
+C:\Users\CONG NHAT\Downloads\CoffeeManagementProject\CoffeeManagementProject.DAL\bin\Debug\net8.0\CoffeeManagementProject.DAL.pdb
+C:\Users\CONG NHAT\Downloads\CoffeeManagementProject\CoffeeManagementProject.DAL\obj\Debug\net8.0\CoffeeManagementProject.DAL.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\CONG NHAT\Downloads\CoffeeManagementProject\CoffeeManagementProject.DAL\obj\Debug\net8.0\CoffeeManagementProject.DAL.AssemblyInfoInputs.cache
+C:\Users\CONG NHAT\Downloads\CoffeeManagementProject\CoffeeManagementProject.DAL\obj\Debug\net8.0\CoffeeManagementProject.DAL.AssemblyInfo.cs
+C:\Users\CONG NHAT\Downloads\CoffeeManagementProject\CoffeeManagementProject.DAL\obj\Debug\net8.0\CoffeeManagementProject.DAL.csproj.CoreCompileInputs.cache
+C:\Users\CONG NHAT\Downloads\CoffeeManagementProject\CoffeeManagementProject.DAL\obj\Debug\net8.0\CoffeeManagementProject.DAL.sourcelink.json
+C:\Users\CONG NHAT\Downloads\CoffeeManagementProject\CoffeeManagementProject.DAL\obj\Debug\net8.0\CoffeeManagementProject.DAL.dll
+C:\Users\CONG NHAT\Downloads\CoffeeManagementProject\CoffeeManagementProject.DAL\obj\Debug\net8.0\refint\CoffeeManagementProject.DAL.dll
+C:\Users\CONG NHAT\Downloads\CoffeeManagementProject\CoffeeManagementProject.DAL\obj\Debug\net8.0\CoffeeManagementProject.DAL.pdb
+C:\Users\CONG NHAT\Downloads\CoffeeManagementProject\CoffeeManagementProject.DAL\obj\Debug\net8.0\ref\CoffeeManagementProject.DAL.dll
+C:\Users\CONG NHAT\Downloads\CoffeeManagementProject\CoffeeManagementProject.DAL\bin\Debug\net8.0\CoffeeManagementProject.DAL.runtimeconfig.json
+C:\Users\CONG NHAT\Downloads\CoffeeManagementProject\CoffeeManagementProject.DAL\obj\Debug\net8.0\CoffeeManagementProject.DAL.csproj.AssemblyReference.cache
+C:\Users\CONG NHAT\Downloads\CoffeeManagementProject\CoffeeManagementProject.DAL\obj\Debug\net8.0\CoffeeManagementProject.DAL.genruntimeconfig.cache

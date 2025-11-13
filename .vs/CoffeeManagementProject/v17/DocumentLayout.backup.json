@@ -1,0 +1,116 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\CONG NHAT\\Downloads\\CoffeeManagementProject\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{D78138D4-DDBF-4D16-A364-71DE73338005}|CoffeeManagementProject\\CoffeeManagementProject.csproj|c:\\users\\cong nhat\\downloads\\coffeemanagementproject\\coffeemanagementproject\\coffeemanagementproject.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{D78138D4-DDBF-4D16-A364-71DE73338005}|CoffeeManagementProject\\CoffeeManagementProject.csproj|solutionrelative:coffeemanagementproject\\coffeemanagementproject.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D411C917-AC5A-4626-BDD5-C2E0B02F2EFB}|CoffeeManagementProject.BLL\\CoffeeManagementProject.BLL.csproj|c:\\users\\cong nhat\\downloads\\coffeemanagementproject\\coffeemanagementproject.bll\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D411C917-AC5A-4626-BDD5-C2E0B02F2EFB}|CoffeeManagementProject.BLL\\CoffeeManagementProject.BLL.csproj|solutionrelative:coffeemanagementproject.bll\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ACB7487E-86DF-438B-AEB5-A0A6661E38FB}|CoffeeManagementProject.DAL\\CoffeeManagementProject.DAL.csproj|c:\\users\\cong nhat\\downloads\\coffeemanagementproject\\coffeemanagementproject.dal\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ACB7487E-86DF-438B-AEB5-A0A6661E38FB}|CoffeeManagementProject.DAL\\CoffeeManagementProject.DAL.csproj|solutionrelative:coffeemanagementproject.dal\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D78138D4-DDBF-4D16-A364-71DE73338005}|CoffeeManagementProject\\CoffeeManagementProject.csproj|c:\\users\\cong nhat\\downloads\\coffeemanagementproject\\coffeemanagementproject\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{D78138D4-DDBF-4D16-A364-71DE73338005}|CoffeeManagementProject\\CoffeeManagementProject.csproj|solutionrelative:coffeemanagementproject\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D78138D4-DDBF-4D16-A364-71DE73338005}|CoffeeManagementProject\\CoffeeManagementProject.csproj|c:\\users\\cong nhat\\downloads\\coffeemanagementproject\\coffeemanagementproject\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D78138D4-DDBF-4D16-A364-71DE73338005}|CoffeeManagementProject\\CoffeeManagementProject.csproj|solutionrelative:coffeemanagementproject\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "CoffeeManagementProject",
+              "DocumentMoniker": "C:\\Users\\CONG NHAT\\Downloads\\CoffeeManagementProject\\CoffeeManagementProject\\CoffeeManagementProject.csproj",
+              "RelativeDocumentMoniker": "CoffeeManagementProject\\CoffeeManagementProject.csproj",
+              "ToolTip": "C:\\Users\\CONG NHAT\\Downloads\\CoffeeManagementProject\\CoffeeManagementProject\\CoffeeManagementProject.csproj",
+              "RelativeToolTip": "CoffeeManagementProject\\CoffeeManagementProject.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-11-13T00:44:15.058Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c64b9c2-e352-428e-a56d-0ace190b99a6}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Class1.cs",
+              "DocumentMoniker": "C:\\Users\\CONG NHAT\\Downloads\\CoffeeManagementProject\\CoffeeManagementProject.BLL\\Class1.cs",
+              "RelativeDocumentMoniker": "CoffeeManagementProject.BLL\\Class1.cs",
+              "ToolTip": "C:\\Users\\CONG NHAT\\Downloads\\CoffeeManagementProject\\CoffeeManagementProject.BLL\\Class1.cs",
+              "RelativeToolTip": "CoffeeManagementProject.BLL\\Class1.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-13T00:44:10.752Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Class1.cs",
+              "DocumentMoniker": "C:\\Users\\CONG NHAT\\Downloads\\CoffeeManagementProject\\CoffeeManagementProject.DAL\\Class1.cs",
+              "RelativeDocumentMoniker": "CoffeeManagementProject.DAL\\Class1.cs",
+              "ToolTip": "C:\\Users\\CONG NHAT\\Downloads\\CoffeeManagementProject\\CoffeeManagementProject.DAL\\Class1.cs",
+              "RelativeToolTip": "CoffeeManagementProject.DAL\\Class1.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-13T00:43:26.114Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "MainWindow.xaml",
+              "DocumentMoniker": "C:\\Users\\CONG NHAT\\Downloads\\CoffeeManagementProject\\CoffeeManagementProject\\MainWindow.xaml",
+              "RelativeDocumentMoniker": "CoffeeManagementProject\\MainWindow.xaml",
+              "ToolTip": "C:\\Users\\CONG NHAT\\Downloads\\CoffeeManagementProject\\CoffeeManagementProject\\MainWindow.xaml",
+              "RelativeToolTip": "CoffeeManagementProject\\MainWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-11-13T00:42:34.545Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "MainWindow.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\CONG NHAT\\Downloads\\CoffeeManagementProject\\CoffeeManagementProject\\MainWindow.xaml.cs",
+              "RelativeDocumentMoniker": "CoffeeManagementProject\\MainWindow.xaml.cs",
+              "ToolTip": "C:\\Users\\CONG NHAT\\Downloads\\CoffeeManagementProject\\CoffeeManagementProject\\MainWindow.xaml.cs",
+              "RelativeToolTip": "CoffeeManagementProject\\MainWindow.xaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-13T00:42:34.206Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
